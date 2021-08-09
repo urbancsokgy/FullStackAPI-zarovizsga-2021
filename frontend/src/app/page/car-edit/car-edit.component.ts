@@ -7,15 +7,29 @@ import { Car } from 'src/app/model/car';
 import { CarService } from 'src/app/service/car.service';
 
 @Component({
-  selector: 'app-car-create',
+  selector: 'app-car-edit',
   templateUrl: './car-edit.component.html',
   styleUrls: ['./car-edit.component.scss']
 })
 export class CarEditComponent implements OnInit {
 
-  constructor() { }
+  car$: Observable<Car> = this.ar.params.pipe(
+    switchMap( params => this.service.get(params.id) )
+  );
+
+  constructor(
+    private service: CarService,
+    private ar: ActivatedRoute,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
   }
 
+  onSave(ngForm: NgForm): void {
+    this.service.update(ngForm.value).subscribe(
+      car => this.router.navigate(['/', 'cars']),
+      err => console.error(err)
+    );
+  }
 }
