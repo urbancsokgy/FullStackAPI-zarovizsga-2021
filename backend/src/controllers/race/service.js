@@ -1,14 +1,14 @@
-const Car = require('../../models/car.model');
+const Race = require('../../models/race.model');
 
-exports.create = carData => {
-    const car = new Car(carData);
-    return car.save();
+exports.create = raceData => {
+    const race = new Race(raceData);
+    return race.save();
 };
 
-exports.findAll = () => Car.find().populate();
+exports.findAll = () => Race.find().populate();
 
-exports.findOne = id => Car.findById(id).populate();
+exports.findOne = id => Race.findById(id).populate();
 
-exports.update = (id, updateData) => Car.findByIdAndUpdate(id, updateData, {new: true});
+exports.update = (id, updateData) => Race.findByIdAndUpdate(id, updateData, {new: true});
 
-exports.delete = id => Car.findByIdAndRemove(id);
+exports.delete = id => Race.findByIdAndRemove(id);
